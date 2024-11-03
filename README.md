@@ -1,6 +1,7 @@
 This code follows the Crypto Bot tutorials provided by Crypto Meta https://www.youtube.com/@CryptoMeta-gm
 
 Project Background
+
 The Solana trading bot we will be creating is a software tool designed to automate the buying and selling of tokens on the Solana blockchain. It is configured to execute trades based on predefined parameters and strategies set by the user and has additional features.
 
 Bot Features & How-Tos Include
