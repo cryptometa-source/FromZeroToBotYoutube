@@ -4,15 +4,15 @@ from TradesManager import TradesManager
 import os
 import asyncio
 
-def make_trade(market_manager: MarketManager, trades_manager: TradesManager, token_address, amount: int, slippage, is_buy: bool):
+def make_trade(market_manager: MarketManager, trades_manager: TradesManager, token_address, amount: int, slippage, priority_fee: int, is_buy: bool):
     did_succeed = False
     transaction_info = None
 
     while not did_succeed:
         if is_buy:
-            tx_signature = trades_manager.buy(token_address, amount, slippage)
+            tx_signature = trades_manager.buy(token_address, amount, slippage, priority_fee)
         else:
-            tx_signature = trades_manager.sell(token_address, amount, slippage)
+            tx_signature = trades_manager.sell(token_address, amount, slippage, priority_fee)
 
         if tx_signature:
             did_succeed = True
@@ -39,14 +39,18 @@ async def main():
 
         buy_amount = int(.001*1e9)
         slippage = int(5000)
-       
-        print("Buying tokens")
-        transaction_info = make_trade(market_manager, trades_manager, user_input, buy_amount, slippage, True)
+        priority_fee = 100000 #.0001 SOL
 
+        print("Buying tokens")
+        transaction_info = make_trade(market_manager, trades_manager, user_input, buy_amount, slippage, priority_fee, True)
+      
         if transaction_info:
             print("Selling tokens")
-            sell_amount = int(abs(transaction_info.payer_token_balance*1e6))
-            transaction_info = make_trade(market_manager, trades_manager, user_input, sell_amount, slippage, False)
+            token_info = market_manager.get_token_info(user_input)
+            scale_factor = pow(10, token_info.token_decimals)
+
+            sell_amount = int(abs(transaction_info.payer_token_balance*scale_factor))
+            transaction_info = make_trade(market_manager, trades_manager, user_input, sell_amount, slippage, priority_fee, False)
 
         #await market_manager.monitor_token(user_input)
         #market_manager.ray_pool_monitor.join()

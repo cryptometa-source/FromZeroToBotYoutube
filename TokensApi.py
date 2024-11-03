@@ -21,7 +21,7 @@ def get_request(request_uri: str):
     else:
         return None
     
-def get_swap_transaction(signer_pubkey: str, in_token_address: str, out_token_address: str, amount: int, slippage: int):
+def get_swap_transaction(signer_pubkey: str, in_token_address: str, out_token_address: str, amount: int, slippage: int, priority_fee: int):
     quote_jup_uri = 'https://quote-api.jup.ag/v6/quote?inputMint=' + in_token_address + '&outputMint=' + \
                 out_token_address + "&amount=" + str(amount) + "&slippageBps=" + str(slippage)
     
@@ -36,6 +36,7 @@ def get_swap_transaction(signer_pubkey: str, in_token_address: str, out_token_ad
             "quoteResponse": quote,
             "userPublicKey": signer_pubkey,
             "wrapAndUnwrapSol": True,
+            "prioritizationFeeLamports": priority_fee
             # Uncomment and modify the following line if you have a fee account
             # "feeAccount": "fee_account_public_key"            
         }
@@ -50,7 +51,7 @@ def get_swap_transaction(signer_pubkey: str, in_token_address: str, out_token_ad
 #Retrieve a token't liquidity pool data using the Raydium v3 API
 def get_amm_token_pool_data(token_address: str)->TokenInfo:
     ray_uri = "https://api-v3.raydium.io/pools"
-    ray_uri_marketid_uri = ray_uri + "/info/mint?mint1=" + token_address + "&poolType=all&poolSortField=default&sortType=desc&pageSize=1&page=1
+    ray_uri_marketid_uri = ray_uri + "/info/mint?mint1=" + token_address + "&poolType=all&poolSortField=default&sortType=desc&pageSize=1&page=1"
 
     #Make the API call
     data = get_request(ray_uri_marketid_uri)

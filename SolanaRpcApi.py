@@ -93,8 +93,15 @@ class SolanaRpcApi:
                 pre_token_balance = SolanaRpcApi._extract_token_balance(owner_address, pre_token_balances)
                 post_token_balance = SolanaRpcApi._extract_token_balance(owner_address, post_token_balances)
 
-                pre_token_amount = pre_token_balance['uiTokenAmount']['uiAmount']
-                post_token_amount = post_token_balance['uiTokenAmount']['uiAmount']
+                if pre_token_balance:
+                    pre_token_amount = pre_token_balance['uiTokenAmount']['uiAmount']
+                else:
+                    pre_token_amount = 0
+                
+                if post_token_balance:
+                    post_token_amount = post_token_balance['uiTokenAmount']['uiAmount']
+                else:
+                    post_token_amount = 0
 
                 transaction_info.transaction_signature = transaction_data['transaction']['signatures'][0]
                 transaction_info.token_address = post_token_balance['mint']
