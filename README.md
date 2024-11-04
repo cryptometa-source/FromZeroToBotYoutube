@@ -19,7 +19,7 @@ Bot Features & How-Tos Include
 - Runs on Windows, Linux, and Mac 
 
 ATTENTION 🚨🚨🚨
-These course videos will be provided free of charge. If you'd like to gain access to the code and additional bonus content contact @gordamack on Telegram or X.com
+These course videos will be provided free of charge. If you'd like to gain access to additional bonus content contact @gordamack on Telegram or X.com
 
 Course Modules
 1 - Introduction
