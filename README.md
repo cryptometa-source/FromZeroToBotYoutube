@@ -19,7 +19,7 @@ Bot Features & How-Tos Include
 - Runs on Windows, Linux, and Mac 
 
 ATTENTION 🚨🚨🚨
-These course videos will be provided free of charge. If you'd like to gain access to additional bonus content contact @gordamack on Telegram or X.com
+These course videos will be provided free of charge. Announcements to come on paid bonus content. Subscribe to @gordamack on X.com or reach out on telegram for announcements.
 
 Course Modules
 1 - Introduction
@@ -27,7 +27,7 @@ Course Modules
 3 - Placing Buy/Sell Orders
 4 - Adding Automation
 5 - Implementing Basic Trading Strategies
-7 - Adding UX (User Experience)
+7 - Adding Basic UX (User Experience)
 8 - Security
 
 Bonus Material (Subscribers Only): 
