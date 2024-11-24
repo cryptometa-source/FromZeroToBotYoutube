@@ -22,12 +22,19 @@ ATTENTION 🚨🚨🚨
 These course videos will be provided free of charge. Announcements to come on paid bonus content. Subscribe to @gordamack on X.com or reach out on telegram for announcements.
 
 Course Modules
+
 1 - Introduction
+
 2 - Retrieving Prices from the Blockchain
+
 3 - Placing Buy/Sell Orders
+
 4 - Adding Automation
+
 5 - Implementing Basic Trading Strategies
+
 7 - Adding Basic UX (User Experience)
+
 8 - Security
 
 Bonus Material (Subscribers Only): 
