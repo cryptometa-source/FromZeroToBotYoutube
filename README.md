@@ -33,9 +33,7 @@ Course Modules
 
 5 - Implementing Basic Trading Strategies
 
-7 - Adding Basic UX (User Experience)
-
-8 - Security
+6 - Security
 
 Bonus Material (Subscribers Only): 
 - Solana Programs & Pump.Fun Integration
