@@ -19,7 +19,7 @@ Bot Features & How-Tos Include
 - Runs on Windows, Linux, and Mac 
 
 ATTENTION 🚨🚨🚨
-These course videos will be provided free of charge. Announcements to come on paid bonus content. Subscribe to @gordamack on X.com or reach out on telegram for announcements.
+These course videos will be provided free of charge. Announcements to come on paid bonus content. Subscribe to @gordamack on X.com or reach out on telegram for announcements. You can now get real-time updates on telegram https://t.me/cryptometagm
 
 Course Modules
 
