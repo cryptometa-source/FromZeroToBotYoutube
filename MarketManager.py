@@ -1,5 +1,5 @@
 from pubsub import pub
-from TokensApi import TokenInfo
+from TradingDTOs import *
 from SolanaRpcApi import SolanaRpcApi
 from RaydiumTokensMonitor import RaydiumTokensMonitor
 import TokensApi as TokensApi
@@ -7,7 +7,7 @@ import Globals as globals
 import time
 
 #Manage Tokem Market Activities
-class MarketManager:
+class MarketManager(AbstractMarketManager):
     def __init__(self, solana_rpc_api: SolanaRpcApi):
         self.ray_pool_monitor = RaydiumTokensMonitor(solana_rpc_api)
         pub.subscribe(topicName=globals.topic_token_update_event, listener=self._handle_token_update)

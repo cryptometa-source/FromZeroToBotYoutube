@@ -1,29 +1,15 @@
 from MarketManager import MarketManager
 from SolanaRpcApi import SolanaRpcApi
 from TradesManager import TradesManager
+from TradingDTOs import *
 import os
 import asyncio
 
-def make_trade(market_manager: MarketManager, trades_manager: TradesManager, token_address, amount: int, slippage, priority_fee: int, is_buy: bool):
-    did_succeed = False
-    transaction_info = None
-
-    while not did_succeed:
-        if is_buy:
-            tx_signature = trades_manager.buy(token_address, amount, slippage, priority_fee)
-        else:
-            tx_signature = trades_manager.sell(token_address, amount, slippage, priority_fee)
-
-        if tx_signature:
-            did_succeed = True
-
-            transaction_info = market_manager.get_swap_info(tx_signature, trades_manager.signer_pubkey, 40)
-
-            if transaction_info:
-                transaction_info.print_swap_info()
-            
-                
-    return transaction_info            
+sol_buy_amount = Amount.sol_ui(.001)
+slippage = Amount.percent_ui(50)
+priority_fee = Amount.sol_ui(.0004)
+profit_limit = PnlOption(trigger_at_percent = Amount.percent_ui(600), percent_allocation = Amount.percent_ui(100))
+stop_loss = PnlOption(trigger_at_percent = Amount.percent_ui(-80), percent_allocation = Amount.percent_ui(100))
 
 async def main():
     http_uri = os.getenv('http_rpc_uri')
@@ -35,24 +21,24 @@ async def main():
         market_manager = MarketManager(solana_rpc_api)
         trades_manager = TradesManager(keys_hash, solana_rpc_api, market_manager)
 
-        user_input = input("Enter a token address to trade: ")
+        while True:
+            token_address = input("Enter a token address to trade: ")
 
-        buy_amount = int(.001*1e9)
-        slippage = int(5000)
-        priority_fee = 100000 #.0001 SOL
+            order = Order(Order_Type.BUY, token_address, sol_buy_amount, slippage, priority_fee)
 
-        print("Buying tokens")
-        transaction_info = make_trade(market_manager, trades_manager, user_input, buy_amount, slippage, priority_fee, True)
-      
-        if transaction_info:
-            print("Selling tokens")
-            token_info = market_manager.get_token_info(user_input)
-            scale_factor = pow(10, token_info.token_decimals)
+            tx_signature = await trades_manager.execute_order(order, True)
+            token_info = market_manager.get_token_info(token_address)
+            transaction_info = trades_manager.get_order_transaction(tx_signature)
 
-            sell_amount = int(abs(transaction_info.payer_token_balance*scale_factor))
-            transaction_info = make_trade(market_manager, trades_manager, user_input, sell_amount, slippage, priority_fee, False)
+            if transaction_info and transaction_info.token_diff > 0:
+                temp_calc = abs(transaction_info.sol_diff/transaction_info.token_diff)   
+                base_token_price = Amount.sol_ui(temp_calc/1E9)
+                tokens_bought = Amount.tokens_ui(transaction_info.token_diff, token_info.decimals_scale_factor)
 
-        #await market_manager.monitor_token(user_input)
-        #market_manager.ray_pool_monitor.join()
+                order = OrderWithLimitsStops(token_address, base_token_price, tokens_bought, slippage, priority_fee)
+                order.add_pnl_option(profit_limit)
+                order.add_pnl_option(stop_loss)
+
+                await trades_manager.execute_order(order, True)
 
 asyncio.run(main())

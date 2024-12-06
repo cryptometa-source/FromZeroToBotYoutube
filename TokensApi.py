@@ -1,17 +1,7 @@
 
+from TradingDTOs import TokenInfo
 import requests
 import json
-
-class TokenInfo:
-    def __init__(self, token_address):
-        self.token_address = token_address
-        self.market_id = ''
-        self.price = 0
-        self.token_vault_ui_amount = 0
-        self.sol_vault_address = ''
-        self.token_vault_address = ''
-        self.sol_address = ''
-        self.token_decimals = ''
 
 def get_request(request_uri: str):
     response = requests.get(request_uri)
@@ -83,7 +73,8 @@ def get_amm_token_pool_data(token_address: str)->TokenInfo:
                     token_info.sol_vault_address = vaultA
                     token_info.token_vault_address = vaultB
                     token_info.price = 1/token_info.price
-                    
+                
+                token_info.decimals_scale_factor = pow(10, token_info.token_decimals)        
                 return token_info
         except Exception as e:
             print(str(e))

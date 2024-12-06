@@ -1,5 +1,6 @@
 from pubsub import pub
-from TokensApi import TokenInfo
+#from TokensApi import TokenInfo FIXME
+from TradingDTOs import TokenInfo
 from SolanaRpcApi import SolanaRpcApi
 import Globals as globals
 import TokensApi as TokensApi

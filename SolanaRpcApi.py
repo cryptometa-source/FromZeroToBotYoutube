@@ -1,28 +1,13 @@
 from jsonrpcclient import request, parse, Ok, Error
 from solana.rpc.api import Client
 from solana.rpc.types import TxOpts
+from solders.pubkey import Pubkey
 from solana.rpc.commitment import Confirmed, Processed, Finalized
+from spl.token.constants import ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID
 from solders.transaction import VersionedTransaction
+from TradingDTOs import SwapTransactionInfo
 import requests
 
-class SwapTransactionInfo:
-    def __init__(self):
-        self.transaction_signature = ''
-        self.token_address = ''
-        self.payer_address = ''
-        self.payer_token_account_address = ''
-        self.payer_token_balance = 0
-        self.sol_diff = 0 #scaled
-        self.token_diff = 0 #ui amount
-
-    def print_swap_info(self):
-        sol_amount = str(abs(self.sol_diff)/1e9)
-        token_amount = str(abs(self.token_diff))
-
-        if self.sol_diff < 0:
-            print(f"{self.payer_address} bought {token_amount} for {sol_amount} SOL")
-        else:
-            print(f"{self.payer_address} sold {token_amount} for {sol_amount} SOL")
 
 class SolanaRpcApi:
 
@@ -64,6 +49,25 @@ class SolanaRpcApi:
                                                                                skip_preflight = True,
                                                                             #preflight_commitment=Processed,
                                                                             max_retries=maxTries))
+    
+    def get_token_account_balance(self, associated_token_address: str):
+        response = self.run_rpc_method("getTokenAccountBalance", [ associated_token_address ])
+        
+        if response:
+            return response.result['value']['uiAmount']
+        else:
+            return None
+        
+    @staticmethod
+    def get_associated_token_account_address(owner_address: str, mint_address: str)->str:
+        mint_address_pk = Pubkey.from_string(mint_address)        
+        owner_address_pk = Pubkey.from_string(owner_address)
+
+        # Calculate the associated token address
+        seeds = [bytes(owner_address_pk), bytes(TOKEN_PROGRAM_ID), bytes(mint_address_pk)]
+        account_pubkey = Pubkey.find_program_address(seeds, ASSOCIATED_TOKEN_PROGRAM_ID)[0]
+
+        return str(account_pubkey)
     
     @staticmethod
     def parse_swap_transaction(owner_address: str, transaction_data: dict):
@@ -108,7 +112,7 @@ class SolanaRpcApi:
 
                 token_account_index = post_token_balance['accountIndex']
                 transaction_info.payer_token_account_address = accounts[token_account_index]['pubkey']
-                transaction_info.payer_token_balance = post_token_amount
+                transaction_info.payer_token_ui_balance = post_token_amount
 
                 if pre_token_amount and post_token_amount:
                     transaction_info.token_diff = post_token_amount-pre_token_amount
