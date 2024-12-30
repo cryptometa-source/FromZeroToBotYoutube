@@ -4,22 +4,8 @@ Project Background
 
 The Solana trading bot we will be creating is a software tool designed to automate the buying and selling of tokens on the Solana blockchain. It is configured to execute trades based on predefined parameters and strategies set by the user and has additional features.
 
-Bot Features & How-Tos Include
-- Meme coin Sniper for Raydium and Pumpfun Tokens
-- Rug check including checking for Dex Paid
-- Detect Pump Migration to Raydium
-- Copy Trade
-- Auto-Buy and Auto-Sell based on predefined strategies 
-- Set Profit Limits and Stop Losses
-- Panic Sell
-- New Token Launch Monitor
-- Wallet Monitor
-- Jito Support
-- User Friendly Interface
-- Runs on Windows, Linux, and Mac 
-
 ATTENTION 🚨🚨🚨
-These course videos will be provided free of charge. Announcements to come on paid bonus content. Subscribe to @gordamack on X.com or reach out on telegram for announcements. You can now get real-time updates on telegram https://t.me/cryptometagm
+These course videos will be provided free of charge. Announcements will come on paid bonus content. Subscribe to @cryptometagm on X.com or Telegram https://t.me/cryptometagm for announcements. 
 
 Course Modules
 
@@ -35,13 +21,37 @@ Course Modules
 
 6 - Security
 
-Bonus Material (Subscribers Only): 
-- Solana Programs & Pump.Fun Integration
-- Testing with Play Money
+Full Bot Features & How-Tos will Include (Subscribers Only)
+- Runs on Windows, Linux, and Mac
+- Meme coin Sniper for Raydium, Pumpfun, and Binance Tokens
+- Monitors/Alert Systems:
+  - New Token Launch Detection for Raydium, Pumpfun, and Binance Tokens
+  - Add Liquidity, Remove Liquidity, and Wallet(s) Sell Detection
+  - Integration with Social Media Apps to retrieve CA or KOL calls from X, Telegram, and Discord
+  - Detect Pump Migration to Raydium
+  - Wallet Monitor
+  - Spike in Volume
+- Flexible Framework for easily defining your own trading strategies
+- Auto-Buy and Auto-Sell based on predefined strategies
+- (Trailing) Profit Limits and Stop Losses
+- Rug check including checking for Dex Paid
+- Copy Trading
+- Easy to setup configuration for Away-from-Keyboard (AFK) trading
+- Option to Panic Sell 
+- Jito Bundler Support
+- User Friendly Interface (Graphical User Interface and Command Line Interface) 
+- Fake Money/Paper Trading
+
+Ongoing support and new features will be added in the future based on our community members interests. Future Tutorials may Cover:
 - Advanced Methods for Monitoring Market Conditions and Placing Trades
-- Rug Checker 
-- JITO Support 
+- Popular Algo Trading Implementations
+- Advanced Rug Checker and Token health monitoring
 - Setting Up a Solana RPC Node at Home
-- And More...
+- Web Site front-end Integration
+- Notifications integration for iPhone and Android
+- Push Button Trades from smart watches (Apple and Samsung)
+- And More... 
 
 New structure and content may be added at any time.
+
+Disclosure: This is just a well made tool to help with your trading endeavors. We'll never provide financial advice. Please DYOR before using this code and practice good security practices.
