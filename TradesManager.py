@@ -1,8 +1,9 @@
-import threading
 import TokensApi as TokensApi
 import base64
 from TradingDTOs import *
 from TransactionChecker import TransactionChecker
+from AbstractTradingStrategy import *
+from Strategy1 import Strategy1
 from MarketManager import MarketManager
 from SolanaRpcApi import SolanaRpcApi
 from PnlTradingEngine import PnlTradingEngine
@@ -25,7 +26,7 @@ class TradesManager(OrderExecutor):
         
         self._update_account_balance(self.signer_pubkey)
 
-    async def execute_order(self, order: Order, retry_until_successful = False)->str:
+    def execute_order(self, order: Order, retry_until_successful = False)->str:
         tx_signature = None
         token_info = self.market_manager.get_token_info(order.token_address)
 
@@ -46,7 +47,7 @@ class TradesManager(OrderExecutor):
                     if tx_signature or not retry_until_successful:
                          should_try = False
             else:
-                await self.market_manager.monitor_token(order.token_address)
+                self.market_manager.monitor_token(order.token_address)
                 trade_strategy = self.create_strategy(token_info=token_info, order_executor=self, order=order)
                 trade_strategy.start()
                 
@@ -56,19 +57,11 @@ class TradesManager(OrderExecutor):
         return tx_signature
     
     @staticmethod
-    def create_strategy(token_info: TokenInfo, order_executor: OrderExecutor, order: Order)->PnlTradingEngine:
+    def create_strategy(token_info: TokenInfo, order_executor: OrderExecutor, order: Order)->AbstractTradingStrategy:
          if order.order_type == Order_Type.LIMIT_STOP_ORDER and isinstance(order, OrderWithLimitsStops):
             return PnlTradingEngine(token_info, order_executor, order)
-         
-    def buy(self, token_address: str, buy_amount: int, slippage: int, priority_fee: int, confirm_transaction = True):
-        token_info = self.market_manager.get_token_info(token_address)
-
-        return self._swap(token_info.sol_address, token_address, buy_amount, slippage, priority_fee, confirm_transaction)
-    
-    def sell(self, token_address: str, sell_amount: int, slippage: int, priority_fee: int, confirm_transaction = True):
-        token_info = self.market_manager.get_token_info(token_address)
-
-        return self._swap(token_address, token_info.sol_address, sell_amount, slippage, priority_fee, confirm_transaction)
+         elif order.order_type == Order_Type.SIMPLE_BUY_DIP_STRATEGY and isinstance(order, StrategyOrder):
+            return Strategy1(token_info, order_executor, order)
     
     def _swap(self, in_token_address: str, out_token_address: str, amount: Amount, slippage: Amount, priority_fee: Amount, confirm_transaction):
         ret_val = None
@@ -86,7 +79,7 @@ class TradesManager(OrderExecutor):
                     tx_signature = str(signed_transaction.signatures[0])
 
                     if confirm_transaction:
-                        transaction_checker = TransactionChecker(self.solana_api_rpc, tx_signature)
+                        transaction_checker = TransactionChecker(self.solana_api_rpc, tx_signature, timeout=35)
                         transaction_checker.start()
                     else:
                         ret_val = tx_signature
@@ -97,9 +90,12 @@ class TradesManager(OrderExecutor):
                         self.solana_api_rpc.send_transaction(signed_transaction)                                                                
                 except Exception as e:                    
                     print(tx_signature + " transaction failed to process: " + str(e))
-
-                if transaction_checker and transaction_checker.wait_for_success(timeout=35):
-                    ret_val = tx_signature       
+               
+                if transaction_checker:
+                    #Wait for transaction checker to complete or timeout
+                    transaction_checker.join()
+                    if transaction_checker.did_succeed():
+                        ret_val = tx_signature
 
         return ret_val
     

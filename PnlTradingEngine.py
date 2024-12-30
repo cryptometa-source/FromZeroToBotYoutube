@@ -65,7 +65,7 @@ class PnlTradingEngine(threading.Thread):
                 sell_amount = Amount.tokens_ui(min(sell_amount, self.current_tokens), self.token_info.decimals_scale_factor)
                 new_order = Order(Order_Type.SELL, self.token_info.token_address, sell_amount, self.max_slippage, self.priority_fee)
 
-                tx_signature = asyncio.run(self.order_executor.execute_order(new_order, True))
+                tx_signature = self.order_executor.execute_order(new_order, True)
 
                 if tx_signature:
                     self.current_tokens -= sell_amount.ToUiValue() #Assumes all tokens sold

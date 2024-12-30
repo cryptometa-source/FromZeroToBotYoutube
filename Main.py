@@ -8,8 +8,8 @@ import asyncio
 sol_buy_amount = Amount.sol_ui(.001)
 slippage = Amount.percent_ui(50)
 priority_fee = Amount.sol_ui(.0004)
-profit_limit = PnlOption(trigger_at_percent = Amount.percent_ui(600), percent_allocation = Amount.percent_ui(100))
-stop_loss = PnlOption(trigger_at_percent = Amount.percent_ui(-80), percent_allocation = Amount.percent_ui(100))
+profit_limit = PnlOption(trigger_at_percent = Amount.percent_ui(600), allocation_percent = Amount.percent_ui(100))
+stop_loss = PnlOption(trigger_at_percent = Amount.percent_ui(-80), allocation_percent = Amount.percent_ui(100))
 
 async def main():
     http_uri = os.getenv('http_rpc_uri')
@@ -26,7 +26,7 @@ async def main():
 
             order = Order(Order_Type.BUY, token_address, sol_buy_amount, slippage, priority_fee)
 
-            tx_signature = await trades_manager.execute_order(order, True)
+            tx_signature = trades_manager.execute_order(order, True)
             token_info = market_manager.get_token_info(token_address)
             transaction_info = trades_manager.get_order_transaction(tx_signature)
 
@@ -39,6 +39,8 @@ async def main():
                 order.add_pnl_option(profit_limit)
                 order.add_pnl_option(stop_loss)
 
-                await trades_manager.execute_order(order, True)
+                trades_manager.execute_order(order, True)
+
+                market_manager.ray_pool_monitor.join()
 
 asyncio.run(main())

@@ -5,7 +5,7 @@ import json
 
 def get_request(request_uri: str):
     response = requests.get(request_uri)
-
+    
     if response.status_code == 200:
         return response.json()
     else:

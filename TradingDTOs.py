@@ -1,10 +1,15 @@
 from enum import Enum
 from abc import abstractmethod
+from Candlesticks import Candlestick
 
 class StrategyState(Enum):
     PENDING = 0,
     COMPLETE = 1,
     FAILED = 2
+
+class SignalState(Enum):
+    TRIGGERED = 0,
+    UNTRIGGERED = 1
 
 class Value_Type(Enum):
     UI = 0
@@ -13,8 +18,9 @@ class Value_Type(Enum):
 class Order_Type(Enum):
     BUY = 0
     SELL = 1
-    LIMIT_STOP_ORDER = 2
-    OTHER_STRATEGY = 3 
+    LIMIT_STOP_ORDER = 2,
+    SIMPLE_BUY_DIP_STRATEGY = 3,
+    OTHER_STRATEGY = 4
 
 class Amount_Units:
     SOL = 0
@@ -69,9 +75,18 @@ class TriggerPrice:
         self.target_price = target_price
         
 class PnlOption:
-    def __init__(self, trigger_at_percent: Amount, percent_allocation: Amount):
+    def __init__(self, trigger_at_percent: Amount, allocation_percent: Amount):
         self.trigger_at_percent = trigger_at_percent
-        self.allocation_percent = percent_allocation
+        self.allocation_percent = allocation_percent
+
+    @staticmethod
+    def from_dict(values: dict[str, any]):
+        return PnlOption(Amount.percent_ui(values.get("trigger_at_percent", 0)),
+                        Amount.percent_ui(values.get("allocation_percent", 100)))      
+class CallEvent:
+    user = ""
+    message = ""
+    contract_addresses : list[str] = []
 
 class Order:
     def __init__(self, order_type: Order_Type, token_address: str, amount: Amount, slippage: Amount, priority_fee: Amount, confirm_transaction = True):
@@ -81,6 +96,11 @@ class Order:
         self.slippage = slippage
         self.priority_fee = priority_fee
         self.confirm_transaction = confirm_transaction
+
+class StrategyOrder(Order):
+  def __init__(self, order_type: Order_Type, token_address: str, amount_in: Amount, slippage: Amount, priority_fee: Amount, strategy_settings: dict[str, any]):
+        Order.__init__(self, order_type, token_address, amount_in, slippage, priority_fee)
+        self.strategy_settings = strategy_settings
 
 class OrderWithLimitsStops(Order):
     def __init__(self, token_address: str, base_token_price: Amount, amount_in: Amount, slippage: Amount, priority_fee: Amount):
@@ -136,6 +156,10 @@ class SwapTransactionInfo:
 class AbstractMarketManager:
     @abstractmethod
     def get_price(self, token_address: str)->float:
+        pass
+
+    @abstractmethod
+    def get_candlesticks(self, token_address: str, interval: int)->list[Candlestick]:
         pass
     
 class OrderExecutor:

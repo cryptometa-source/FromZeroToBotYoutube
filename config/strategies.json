@@ -1,0 +1,14 @@
+[
+    {
+        "module_filename" : "SimpleBuyDipEngine.py",
+        "strategy_title" : "Buy the Dip on a 1 second chart",
+        "token_address" : "GjCqkMr8uvYibgummgXXcrD7jtxUQ17Ljtr8uo4zRULC",
+        "trigger_drop_percent": 0.3,
+        "chart_interval": 1, 
+        "amount_in": 0.1,
+        "slippage": 50,
+        "priority_fee": 0.0004,
+        "limit_orders" : [{"trigger_at_percent": 1, "allocation_percent": 100}],
+        "stop_loss_orders" : [{"trigger_at_percent": -80, "allocation_percent": 100}]
+    }
+]

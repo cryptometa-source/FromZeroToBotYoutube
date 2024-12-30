@@ -20,22 +20,17 @@ class TransactionChecker(threading.Thread):
         self.time_started = time.time()
         asyncio.run(self._check_transaction())
 
-    def get_taken(self):
+    def get_time_taken(self):
         if self.time_stopped > 0:
             return self.time_stopped - self.time_started
         else:
             return time.time()-self.time_started
         
     def did_succeed(self):
-        if self.final_response: #and self.final_response['params']['result']['value']['err'] == None:
+        if self.final_response and self.final_response['params']['result']['value']['err'] == None:
             return True
         else:
             return False
-    
-    def wait_for_success(self, timeout: int):
-        self.stop_event.wait(timeout=timeout)
-
-        return self.did_succeed()
 
     async def _check_transaction(self):
         async with websockets.connect(self.solana_rpc_api.wss_uri) as websocket:
