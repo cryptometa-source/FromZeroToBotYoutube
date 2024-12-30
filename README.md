@@ -5,7 +5,7 @@ Project Background
 The Solana trading bot we will be creating is a software tool designed to automate the buying and selling of tokens on the Solana blockchain. It is configured to execute trades based on predefined parameters and strategies set by the user and has additional features.
 
 ATTENTION 🚨🚨🚨
-These course videos will be provided free of charge. Announcements to come on paid bonus content. Subscribe to @gordamack on X.com or reach out on telegram for announcements. You can now get real-time updates on telegram https://t.me/cryptometagm
+These course videos will be provided free of charge. Announcements will come on paid bonus content. Subscribe to @cryptometagm on X.com or Telegram https://t.me/cryptometagm for announcements. 
 
 Course Modules
 
@@ -40,8 +40,7 @@ Full Bot Features & How-Tos will Include (Subscribers Only)
 - Option to Panic Sell 
 - Jito Bundler Support
 - User Friendly Interface (Graphical User Interface and Command Line Interface) 
-- Fake Money Testing
-- JITO Support
+- Fake Money/Paper Trading
 
 Ongoing support and new features will be added in the future based on our community members interests. Future Tutorials may Cover:
 - Advanced Methods for Monitoring Market Conditions and Placing Trades
