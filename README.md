@@ -4,8 +4,8 @@ Project Background
 
 The Solana trading bot we will be creating is a software tool designed to automate the buying and selling of tokens on the Solana blockchain. It is configured to execute trades based on predefined parameters and strategies set by the user and has additional features.
 
-ATTENTION 🚨🚨🚨
-These course videos will be provided free of charge. Announcements will come on paid bonus content. Subscribe to @cryptometagm on X.com or Telegram https://t.me/cryptometagm for announcements. 
+🚨 ATTENTION 🚨
+These corresponding course videos will be provided free of charge. Announcements will come on paid bonus content. Subscribe to @cryptometagm on X.com or Telegram https://t.me/cryptometagm for announcements. 
 
 Course Modules
 
@@ -21,26 +21,88 @@ Course Modules
 
 6 - Security
 
+UDPDATE 2/24/25
+Early access to our premium open-source crypto bot toolkit will be available soon to a limited number of people! Check this X post for detailed instructions on securing access: https://x.com/cryptometagm/status/1893775605327339702
+
 Full Bot Features & How-Tos will Include (Subscribers Only)
-- Runs on Windows, Linux, and Mac
-- Meme coin Sniper for Raydium, Pumpfun, and Binance Tokens
-- Monitors/Alert Systems:
-  - New Token Launch Detection for Raydium, Pumpfun, and Binance Tokens
-  - Add Liquidity, Remove Liquidity, and Wallet(s) Sell Detection
-  - Integration with Social Media Apps to retrieve CA or KOL calls from X, Telegram, and Discord
-  - Detect Pump Migration to Raydium
-  - Wallet Monitor
-  - Spike in Volume
-- Flexible Framework for easily defining your own trading strategies
-- Auto-Buy and Auto-Sell based on predefined strategies
-- (Trailing) Profit Limits and Stop Losses
-- Rug check including checking for Dex Paid
-- Copy Trading
-- Easy to setup configuration for Away-from-Keyboard (AFK) trading
-- Option to Panic Sell 
-- Jito Bundler Support
-- User Friendly Interface (Graphical User Interface and Command Line Interface) 
-- Fake Money/Paper Trading
+✅ Runs on Windows, Linux, and Mac
+
+🎯 Meme Coin Sniper Integration
+✅ Raydium Trade API
+✅ jup(.)ag API
+✅ Binance Buy/Sell Integration
+✅ Pumpfun Program
+
+🏃‍♂️ Wallet Sell Detection
+✅ Track dev wallets and insiders using TokenInfo
+✅ Real-time notifications for wallet transactions
+
+📢📱 Social Media Integration
+✅ X notifications via phone app (Requires IFTTT Pro Subscription)
+✅ Discord
+✅ Telegram
+✅ Real-time contract address regex extraction
+
+🔄 Pumpfun to Raydium Migration
+✅ Handle liquidity migration events.
+
+💼🔍 Wallet Tracking
+✅ Real-time owner wallet tracking
+
+📊 Volume Spike/Dip Detection
+✅ Basic candlestick and volume alerts
+⬜️ Future: Advanced trend analysis, historical data access, and recording
+
+💧 Liquidity Monitoring
+✅ Detect liquidity additions/removals (Geyser and regular websocket) 
+⬜️ Binance new token detection on centralized exchange
+
+♟ Predefined Strategies
+✅ Social calls
+✅ Buy Dip Simple
+✅ Limit and stop loss orders
+✅ Copy Trade
+✅ Bundler Buy and Sell Timer
+✅ Front Run
+✅ Strategy Template
+✅ New Launch Auto Buy
+⬜️ Buy Near Support, Sell Near Resistance Strategy handler (Completed; Porting Required)
+
+⚙️ AFK Trading Configuration
+✅ JSON-configurable strategies
+⬜️ Future: AI agent integration for token assessments and auto trades
+⬜️ Future: Phone/email alerts with optional confirmations
+
+🕵️‍♂️ Auto Rug Checker
+⬜️ Top Holders Filter, Token Risk Assessment (Completed; Porting Required)
+⬜️ DexScreener & RugCheck API integration
+
+🛑 Panic Sell Mode
+✅ Protect your investments in a pinch
+
+📚 Jito Bundler Support
+✅ Pumpfun
+✅ Raydium transaction support
+
+😊 User-Friendly Interface
+✅ See new launches in real-time & wallet views
+✅ Quick Buy/Sell features (Completed; Porting Required)
+✅ CLI Buy/Sell w/ Strategy options 
+⬜️ GUI view settings and configurator
+⬜️ Future: Sleek AAA design & website integration
+
+💵🎲 Strategy Testing
+⬜️ Toggle “fake money” for experiments. (Completed; Porting Required)
+⬜️ Future: Backtesting with historical data
+
+🛠 Flexible Framework
+✅ Custom trading strategy schema defined
+✅ Installable py package
+⬜️ User guide
+
+🛡 Security First
+⬜️ Wallet encryption
+⬜️ Auto-restart on failure and balance safeguards
 
 Ongoing support and new features will be added in the future based on our community members interests. Future Tutorials may Cover:
 - Advanced Methods for Monitoring Market Conditions and Placing Trades
