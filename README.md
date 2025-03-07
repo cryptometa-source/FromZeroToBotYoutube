@@ -22,7 +22,8 @@ Course Modules
 6 - Security
 
 UDPDATE 3/7/25
-Beta access to our premiere open-source crypto bot toolkit, Tx Defi, is closed now, but you can catch our dev conversations on the discord https://discord.gg/B2qHQj3bVR. We're working tirelessly with the beta tester team to deliver the final product soon so stay peeled for updates.
+Beta access to our premiere open-source crypto bot toolkit, Tx Defi, is closed now, but you can catch our dev conversations on the discord https://discord.gg/B2qHQj3bVR. We're working tirelessly with the beta tester team to deliver the final product soon so stay peeled for updates. Launch date is still in the air due to the broader market downtrend, but this give us more time to mature the product, giving you the most value.
+-CM
 
 Full Bot Features & How-Tos will Include (Subscribers Only)
 
