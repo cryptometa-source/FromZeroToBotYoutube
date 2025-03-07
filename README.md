@@ -21,8 +21,8 @@ Course Modules
 
 6 - Security
 
-UDPDATE 2/24/25
-Early access to our premium open-source crypto bot toolkit will be available soon to a limited number of people! Check this X post for detailed instructions on securing access: https://x.com/cryptometagm/status/1893775605327339702
+UDPDATE 3/7/25
+Beta access to our premiere open-source crypto bot toolkit, Tx Defi, is closed now, but you can catch our dev conversations on the discord https://discord.gg/B2qHQj3bVR. We're working tirelessly with the beta tester team to deliver the final product soon so stay peeled for updates.
 
 Full Bot Features & How-Tos will Include (Subscribers Only)
 
